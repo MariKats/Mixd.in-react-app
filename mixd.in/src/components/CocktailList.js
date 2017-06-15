@@ -1,19 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Switch, Route } from 'react-router-dom'
 
 
 const CocktailList = ({ cocktails }) => (
-  <div>
-      <h2>Cocktail List</h2>
-      <ul>
-        { cocktails.map( cocktail => <li key={cocktail.name}><Link to={`/cocktails/${cocktail.id}`}>{ cocktail.name }</Link></li>)}
+    <div>
+      <h2>Pick Your Poison:</h2>
+      <ul className="list-group">
+        { cocktails.map( cocktail => <li key={cocktail.id} className="list-group-item"><Link to={`/cocktails/${cocktail.id}`}>{ cocktail.name }</Link></li>)}
       </ul>
+      <Switch>
+        <Route path='/cocktails/new' />
+        <Route render={() => <Link to="/cocktails/new">Add a Cocktail</Link> } />
+      </Switch>
     </div>
 )
-
-// <Switch>
-//   <Route path='/cocktails/new' />
-//   <Route render={() => <Link to="/cocktails/new">Add a Cocktail</Link> } />
-// </Switch>
 
 export default CocktailList;

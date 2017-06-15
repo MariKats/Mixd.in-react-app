@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
+import { Link, Route, Switch } from 'react-router-dom'
 import CocktailList from './CocktailList';
 import CocktailForm from './CocktailForm';
+import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
 
 export default class CocktailPage extends Component {
@@ -8,12 +10,7 @@ export default class CocktailPage extends Component {
     super();
     this.createCocktail = this.createCocktail.bind(this)
     this.state = {
-      cocktails: [
-        // { name: "Bloody Mary" },
-        // { name: "Tequila Sunrise" },
-        // { name: "Mai Tai" },
-        // { name: "Pina Colada" },
-      ],
+      cocktails: [],
       selectedCocktail: ''
     }
   }
@@ -35,10 +32,30 @@ export default class CocktailPage extends Component {
 
     render() {
         return (
-            <div className="class-name">
-              <CocktailList cocktails={this.state.cocktails} />
-              <CocktailForm onSubmit={this.createCocktail}/>
+            <div className="row">
+              <div className='col-md-4'>
+                <CocktailList cocktails={this.state.cocktails} />
+              </div>
+              <div className='col-md-8'>
+                <Switch>
+                  <Route exact path='/cocktails/new' render={() => <CocktailForm onSubmit={this.createCocktail} submitText="Create Student"/>} />
+                  <Route exact path='/cocktails/:id' render={({match}) => {
+                    const id = match.params.id
+                    const cocktail = this.state.cocktails.find( c =>  c.id === parseInt(id) )
+                    return <DrinkDetail cocktail={cocktail}/>
+                  }} />
+                </Switch>
+              </div>
             </div>
         );
     }
 }
+
+      // <Route exact path='/students/:id/edit' render={({match}) => {
+      //   const id = match.params.id
+      //   const student = students.find( s =>  s.id === parseInt(id) )
+      //   if (!student) {
+      //     return null
+      //   }
+      //   return <StudentForm student={student} onSubmit={updateStudent} submitText="Edit Student"/>
+      // }} />
