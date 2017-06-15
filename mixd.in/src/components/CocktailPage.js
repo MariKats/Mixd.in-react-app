@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import CocktailList from './CocktailList';
 import CocktailForm from './CocktailForm';
+import DrinksAdapter from '../adapters';
 
 export default class CocktailPage extends Component {
   constructor(){
@@ -8,13 +9,19 @@ export default class CocktailPage extends Component {
     this.createCocktail = this.createCocktail.bind(this)
     this.state = {
       cocktails: [
-        { name: "Bloody Mary" },
-        { name: "Tequila Sunrise" },
-        { name: "Mai Tai" },
-        { name: "Pina Colada" },
+        // { name: "Bloody Mary" },
+        // { name: "Tequila Sunrise" },
+        // { name: "Mai Tai" },
+        // { name: "Pina Colada" },
       ],
       selectedCocktail: ''
     }
+  }
+
+  componentDidMount(){
+    DrinksAdapter.all()
+    .then( cocktails => this.setState({cocktails}) )
+    console.log(this.state.cocktails)
   }
 
     createCocktail(cocktail){
