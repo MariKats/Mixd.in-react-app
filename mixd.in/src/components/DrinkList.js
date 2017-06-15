@@ -2,17 +2,17 @@ import React from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
 
 
-const CocktailList = ({ cocktails }) => (
+const DrinkList = ({ drinks }) => (
     <div>
       <h2>Pick Your Poison:</h2>
       <ul className="list-group">
-        { cocktails.map( cocktail => <li key={cocktail.id} className="list-group-item"><Link to={`/cocktails/${cocktail.id}`}>{ cocktail.name }</Link></li>)}
+        { drinks.map( drink => <li key={drink.id} className="list-group-item"><Link to={`/drinks/${drink.id}`}>{ drink.name }</Link></li>)}
       </ul>
       <Switch>
-        <Route path='/cocktails/new' />
-        <Route render={() => <Link to="/cocktails/new">Add a Cocktail</Link> } />
+        <Route path='/drinks/new' />
+        <Route render={() => <Link to="/drinks/new">Add a Drink</Link> } />
       </Switch>
     </div>
 )
 
-export default CocktailList;
+export default DrinkList;

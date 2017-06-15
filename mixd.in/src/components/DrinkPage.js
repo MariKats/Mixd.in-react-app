@@ -1,31 +1,31 @@
 import React,{Component} from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
-import CocktailList from './CocktailList';
-import CocktailForm from './CocktailForm';
+import DrinkList from './DrinkList';
+import DrinkForm from './DrinkForm';
 import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
 
-export default class CocktailPage extends Component {
+export default class DrinkPage extends Component {
   constructor(){
     super();
-    this.createCocktail = this.createCocktail.bind(this)
+    this.createDrink = this.createDrink.bind(this)
     this.state = {
-      cocktails: [],
-      selectedCocktail: ''
+      drinks: [],
+      selectedDrink: ''
     }
   }
 
   componentDidMount(){
     DrinksAdapter.all()
-    .then( cocktails => this.setState({cocktails}) )
-    console.log(this.state.cocktails)
+    .then( drinks => this.setState({drinks}) )
+    console.log(this.state.drinks)
   }
 
-    createCocktail(cocktail){
-      console.log(cocktail)
+    createDrink(drink){
+      console.log(drink)
       this.setState(function(previousState){
         return {
-          cocktails: [...previousState.cocktails, cocktail]
+          drinks: [...previousState.drinks, drink]
         }
       }, console.log(this.state.cocktais))
     }
@@ -34,15 +34,15 @@ export default class CocktailPage extends Component {
         return (
             <div className="row">
               <div className='col-md-4'>
-                <CocktailList cocktails={this.state.cocktails} />
+                <DrinkList drinks={this.state.drinks} />
               </div>
               <div className='col-md-8'>
                 <Switch>
-                  <Route exact path='/cocktails/new' render={() => <CocktailForm onSubmit={this.createCocktail} submitText="Create Student"/>} />
-                  <Route exact path='/cocktails/:id' render={({match}) => {
+                  <Route exact path='/drinks/new' render={() => <DrinkForm onSubmit={this.createDrink} submitText="Create Student"/>} />
+                  <Route exact path='/drinks/:id' render={({match}) => {
                     const id = match.params.id
-                    const cocktail = this.state.cocktails.find( c =>  c.id === parseInt(id) )
-                    return <DrinkDetail cocktail={cocktail}/>
+                    const drink = this.state.drinks.find( c =>  c.id === parseInt(id) )
+                    return <DrinkDetail drink={drink}/>
                   }} />
                 </Switch>
               </div>
