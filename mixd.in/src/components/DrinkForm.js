@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 
+
 export default class DrinkForm extends Component {
   constructor(props){
     super(props);
@@ -17,7 +18,8 @@ export default class DrinkForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    this.props.onSubmit({ name: this.state.name })
+
+    this.props.onSubmit(event.target.children)
   }
 
   handleChange(event){
@@ -90,7 +92,7 @@ export default class DrinkForm extends Component {
 
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
-      <div>
+      <div className="ingredients">
         <input key={ingre.id + `ing`} type='text' placeholder="Ingredient Name" value={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
@@ -106,6 +108,7 @@ export default class DrinkForm extends Component {
 
   render() {
     return (
+      <Search
         <div className="drink-input">
           <form onSubmit={this.handleSubmit}>
             <input type='text' placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>

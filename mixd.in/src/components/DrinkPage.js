@@ -4,6 +4,7 @@ import DrinkList from './DrinkList';
 import DrinkForm from './DrinkForm';
 import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
+import Search from './Search';
 
 export default class DrinkPage extends Component {
   constructor(){
@@ -21,14 +22,31 @@ export default class DrinkPage extends Component {
     console.log(this.state.drinks)
   }
 
-    createDrink(drink){
-      console.log(drink)
-      this.setState(function(previousState){
-        return {
-          drinks: [...previousState.drinks, drink]
-        }
-      }, console.log(this.state.cocktais))
-    }
+  createDrink(drink){
+    console.log(drink)
+    debugger
+  //   DrinksAdapter.create(drink)
+  //   .then(drink => this.setState((previousState) => {
+  //     return {
+  //       drinks: [...previousState.drinks, drink]
+  //     }
+  //   })
+  // )
+}
+
+
+    // createDrink(drink){
+    //
+    //   debugger
+    // let dname = drink.shift()
+    // // debugger
+    //   console.log(drink)
+    //   let new_drink = {
+    //     name: drink[0].value,
+    //     description: drink[1].value,
+    //     ingredients:
+    //   }
+
 
     render() {
         return (
