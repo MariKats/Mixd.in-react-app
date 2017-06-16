@@ -18,7 +18,7 @@ export default class DrinkPage extends Component {
   componentDidMount(){
     DrinksAdapter.all()
     .then( drinks => this.setState({drinks}) )
-    console.log(this.state.drinks)
+    // console.log(this.state.drinks)
   }
 
     createDrink(drink){
