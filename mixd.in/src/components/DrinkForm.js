@@ -6,6 +6,8 @@ export default class DrinkForm extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.renderIngredientInputs = this.renderIngredientInputs.bind(this)
+    this.addIngredientInput = this.addIngredientInput.bind(this)
     this.state = {
       name: '',
       description: '',
@@ -18,8 +20,7 @@ export default class DrinkForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-
-    this.props.onSubmit(event.target.children)
+    this.props.onSubmit(this.state)
   }
 
   handleChange(event){
@@ -28,14 +29,15 @@ export default class DrinkForm extends Component {
     }, console.log(this.state.name))
   }
 
-  handleIngredientChange(id, value, type, quantity){
-    this.setState(function(previousState){
+  handleIngredientChange(id, name, value){    
+    this.setState((previousState) => {
+    
       return {
         ingredients: previousState.ingredients.map((ingre) =>{
-          if (ingre.id !== id){
+          if (ingre.id !== parseInt(id)){
             return ingre
           } else {
-            return {id: id, name: value, unit: type, quantity: quantity}
+            return {[name]: value}
           }
         })
       }
@@ -44,7 +46,8 @@ export default class DrinkForm extends Component {
 
   renderUnitSelection(ingre){
     return (
-    <select key={ingre.id + `unit`} value={ingre.unit} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.quantity)}>
+    <select key={ingre.id + `unit`} id={ingre.id} name={`unit`} value={ingre.unit} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name, event.target.value)}>
+      <option value=""> </option>
       <option value="ounce">Ounce</option>
       <option value="dash">Dash</option>
       <option value="cup">Cup</option>
@@ -66,7 +69,8 @@ export default class DrinkForm extends Component {
 
 
   renderMeasurmentSelection(ingre){
-      return (<select key={ingre.id + `quantity`} value={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.unit)}>
+      return (<select key={ingre.id + `quantity`} id={ingre.id} name={`quantity`} value={ingre.quantity} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name, event.target.value)}>
+        <option value=""> </option>
         <option value="0.5">0.5</option>
         <option value="1">1</option>
         <option value="1.5">1.5</option>
@@ -93,7 +97,7 @@ export default class DrinkForm extends Component {
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
       <div className="ingredients">
-        <input key={ingre.id + `ing`} type='text' placeholder="Ingredient Name" value={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
+        <input key={ingre.id + `ing`} type='text' id={ingre.id} name={"name"} placeholder="Ingredient Name" value={ingre.name} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name,event.target.value)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
       </div>
@@ -102,7 +106,7 @@ export default class DrinkForm extends Component {
 
   addIngredientInput(){
     this.setState(function(previousState){
-      return { ingredients: [...previousState.ingredients, {id: previousState.ingredients.length +1, number:''}]}
+      return { ingredients: [...previousState.ingredients, {id: previousState.ingredients.length +1, name:'', unit:'', quantity:''}]}
     })
   }
 
@@ -115,7 +119,7 @@ export default class DrinkForm extends Component {
             {this.renderIngredientInputs() }
             <input type='submit' value="Create a Drink!"/>
           </form>
-          <button onClick={this.addIngredientInput.bind(this)}>Add Additional Ingredient</button>
+          <button onClick={this.addIngredientInput}>Add Additional Ingredient</button>
         </div>
     );
   }
