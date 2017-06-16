@@ -108,7 +108,6 @@ export default class DrinkForm extends Component {
 
   render() {
     return (
-      <Search
         <div className="drink-input">
           <form onSubmit={this.handleSubmit}>
             <input type='text' placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
