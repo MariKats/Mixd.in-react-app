@@ -2,7 +2,7 @@ import React from 'react'
 
 const Search = (props) => {
   function onChange(event){
-    props.handleChange(event)
+    props.onChange(event)
   }
   return (
     <div className="drink-search">

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function getIngredients(ingredients){
@@ -51,6 +52,8 @@ const DrinkDetail = ({drink}) => {
           <h3>Ingredients:</h3>
           {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
           </div>
+          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>
+          
         </div>
       </div>
     </div>)
