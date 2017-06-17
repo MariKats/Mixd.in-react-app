@@ -17,7 +17,7 @@ class App extends Component {
           <Route path='/drinks/:id' render={() => <DrinkDetail />} />
           <Route path='/drinks/:id/make' render={() => <StepsContainer />} />
         </Switch>
-        
+
       </div>
     );
   }

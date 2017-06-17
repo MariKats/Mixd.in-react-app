@@ -1,8 +1,13 @@
 const baseUrl = `http://localhost:3000/api`
 
 export default class DrinksAdapter {
-  static all(){
+  static allDrinks(){
     return fetch(`${this.url()}`)
+    .then( response => response.json() )
+  }
+
+  static allIng(){
+    return fetch(`${baseUrl}/ingredients`)
     .then( response => response.json() )
   }
 

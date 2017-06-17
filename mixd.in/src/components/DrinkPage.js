@@ -11,13 +11,12 @@ export default class DrinkPage extends Component {
     super();
     this.createDrink = this.createDrink.bind(this)
     this.state = {
-      drinks: [],
-      selectedDrink: ''
+      drinks: []
     }
   }
 
   componentDidMount(){
-    DrinksAdapter.all()
+    DrinksAdapter.allDrinks()
     .then( drinks => this.setState({drinks}) )
     // console.log(this.state.drinks)
   }
