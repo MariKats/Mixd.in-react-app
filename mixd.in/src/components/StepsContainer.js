@@ -7,18 +7,22 @@ export default class Landing extends Component {
     constructor() {
         super()
         this.state = {
-            name: '',
-            description: '',
-            ingredients: [{id: 1, name:'', unit:'', quantity:''}],
-            steps: [{name:'', length_of_time:''}],
-            equipments: [{name:''}],
-            tags: [{name:''}]
+            
+                name: '',
+                description: '',
+                ingredients: [{id: 1, name:'', unit:'', quantity:''}],
+                steps: [{name:'', length_of_time:''}],
+                equipments: [{name:''}],
+                tags: [{name:''}]
+            
+            
         }
     }
     componentDidMount() {
+        debugger
         DrinksAdapter.show()
-        .then( drinks => this.setState({drinks}) )
-       
+        .then( drink => console.log(drink) )
+        
     }
 
     render() {
