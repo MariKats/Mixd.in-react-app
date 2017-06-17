@@ -13,8 +13,8 @@ class App extends Component {
         <NavBar title="Mixd.in" style='inverse'/>
         <Switch>
           <Route exact path='/' render={() => <Landing />} />
-          <Route exact path='/drinks' render={() => <DrinkPage />} />
-          <Route exact path='/drinks/:id' render={() => <DrinkDetail />} />
+          <Route path='/drinks' render={() => <DrinkPage />} />
+          <Route path='/drinks/:id' render={() => <DrinkDetail />} />
           <Route path='/drinks/:id/make' render={() => <StepsContainer />} />
         </Switch>
         
