@@ -11,11 +11,14 @@ export default class DrinksAdapter {
   }
 
   static create(drink){
-    return fetch(`${this.url()}/${drink.id}`,
+    return fetch(`${this.url()}`,
     {method: 'POST',
-    headers: this.headers(),
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      },
     body: JSON.stringify({
-      drink: {name: drink.name.value, description: drink.description.value, ingredients: drink.ingredients.value}
+      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients}
       })
     })
     .then( response => response.json() )

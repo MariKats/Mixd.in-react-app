@@ -5,6 +5,7 @@ export default class DrinkForm extends Component {
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this)
+    this.handleIngredientChange = this.handleIngredientChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.renderIngredientInputs = this.renderIngredientInputs.bind(this)
     this.addIngredientInput = this.addIngredientInput.bind(this)
@@ -26,18 +27,22 @@ export default class DrinkForm extends Component {
   handleChange(event){
     this.setState({
       [event.target.name]: event.target.value
-    }, console.log(this.state.name))
+    })
   }
 
-  handleIngredientChange(id, name, value){    
+  handleIngredientChange(id, name, unit, quantity){
     this.setState((previousState) => {
-    
       return {
         ingredients: previousState.ingredients.map((ingre) =>{
-          if (ingre.id !== parseInt(id)){
+          if (ingre.id !== parseInt(id, 10)){
             return ingre
           } else {
-            return {[name]: value}
+            return {
+              id: id,
+              name: name,
+              unit: unit,
+              quantity: quantity,
+            }
           }
         })
       }
@@ -46,7 +51,7 @@ export default class DrinkForm extends Component {
 
   renderUnitSelection(ingre){
     return (
-    <select key={ingre.id + `unit`} id={ingre.id} name={`unit`} value={ingre.unit} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name, event.target.value)}>
+    <select key={ingre.id + `unit`} id={ingre.id} name="unit" defaultValue={ingre.unit} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.quantity)}>
       <option value=""> </option>
       <option value="ounce">Ounce</option>
       <option value="dash">Dash</option>
@@ -69,7 +74,7 @@ export default class DrinkForm extends Component {
 
 
   renderMeasurmentSelection(ingre){
-      return (<select key={ingre.id + `quantity`} id={ingre.id} name={`quantity`} value={ingre.quantity} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name, event.target.value)}>
+      return (<select key={ingre.id + `quantity`} id={ingre.id} name="quantity" defaultValue={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, ingre.unit, event.target.value)}>
         <option value=""> </option>
         <option value="0.5">0.5</option>
         <option value="1">1</option>
@@ -97,7 +102,7 @@ export default class DrinkForm extends Component {
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
       <div className="ingredients">
-        <input key={ingre.id + `ing`} type='text' id={ingre.id} name={"name"} placeholder="Ingredient Name" value={ingre.name} onChange={(event) => this.handleIngredientChange(event.target.id, event.target.name,event.target.value)} />
+        <input key={ingre.id + `ing`} type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit,  ingre.quantity)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
       </div>
