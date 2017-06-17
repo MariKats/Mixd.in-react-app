@@ -8,7 +8,8 @@ const NavBar = ({style, title}) => (
         <Link to="/" className='navbar-brand'>{title}</Link>
       </div>
       <ul className="nav navbar-nav">
-        <li><Link to="/cocktails">View List of Coctails</Link></li>
+        <li><Link to="/drinks">Drinks</Link></li>
+        <li><Link to="/ingredients">Ingredients</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
     </div>
