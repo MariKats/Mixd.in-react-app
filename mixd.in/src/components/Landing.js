@@ -71,7 +71,7 @@ export default class Landing extends Component {
         return(
           <div>
             <div className="row jumbotron text-center">
-                <h1>Mixd.In</h1>
+                <h1><img src='./better-mixd-in.png' /></h1>
                 <h1><small>Pick Your Poison</small></h1>
                 <Search onChange={this.handleChange}/>
             </div>
