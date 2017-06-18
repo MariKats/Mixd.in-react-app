@@ -60,7 +60,6 @@ const DrinkDetail = ({drink}) => {
           {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
           </div>
           <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>
-
         </div>
       </div>
     </div>)
