@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-
 function getIngredients(ingredients){
   const smt = ingredients.reduce((allIng, ing)=>{
     if(`${ing.unit} of ${ing.name}` in allIng){
@@ -30,18 +29,10 @@ function getIngredients(ingredients){
   return results
 }
 
-const DrinkDetail = ({drink}) => {
+const DrinkDetail = ({drink, deleteDrink}) => {
   if (!drink){
     return null
   }
-
-  // function filterById(array, id) {
-  //   const temp = array.map(ing => ing[id]);
-  //     return array.filter((ing, i) =>
-  //       temp.indexOf(ing[id]) === i
-  //     );
-  //   }
-
 
   return(<div className='row inverse'>
       <div className='col-md-4'>
@@ -52,8 +43,9 @@ const DrinkDetail = ({drink}) => {
           <h3>Ingredients:</h3>
           {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
           </div>
-          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>
-          
+          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
+          <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
+          <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
         </div>
       </div>
     </div>)

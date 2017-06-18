@@ -122,7 +122,7 @@ export default class DrinkForm extends Component {
             <input type='text' placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
             <input type='text' placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
             {this.renderIngredientInputs() }
-            <input type='submit' value="Create a Drink!"/>
+            <input type='submit' value={this.props.submitText}/>
           </form>
           <button onClick={this.addIngredientInput}>Add Additional Ingredient</button>
         </div>
