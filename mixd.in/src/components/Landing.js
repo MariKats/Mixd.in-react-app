@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Search from './Search';
 import DrinksAdapter from '../adapters'
 // import SearchResults from './SearchResults'
@@ -41,19 +41,30 @@ export default class Landing extends Component {
     handleChange(event) {
         this.setState({
             searchTerm: event.target.value
-        }, console.log(this.state.searchTerm))
+        })
+
         let filter = this.state.drinks.filter(drink => {
-          if (drink.name.includes(event.target.value)){
+          if (drink.name.includes(event.target.value)) {
             return drink
           }
           if (drink.description.includes(event.target.value)){
             return drink
+
           }
-          return false
         })
         this.setState(()=>{
           return {searchResults: filter}
         })
+
+        // let ingredientfilter = this.state.ingredients.filter(ingredient => {
+        //   if (ingredient.name.includes(event.target.value)){
+        //     return ingredient
+        //   }
+        //   return false
+        // })
+        // this.setState( (previousState) => {
+        //   return {searchResults: [...previousState, ingredientfilter]}
+        // })
     }
 
     render() {
@@ -65,7 +76,7 @@ export default class Landing extends Component {
                 <Search onChange={this.handleChange}/>
             </div>
             <ul>
-              {this.state.searchResults.map(res => {return <SearchResults key={res.id} results={res}/>})}
+              {this.state.searchResults.map(res => {return <Link to= {`/drinks/${res.id}`}><SearchResults key={res.id} results={res}/></Link>})}
             </ul>
           </div>
 
