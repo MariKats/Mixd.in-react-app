@@ -5,16 +5,22 @@ export default class DrinkForm extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this)
     this.handleIngredientChange = this.handleIngredientChange.bind(this)
+    this.handleEquipmentChange = this.handleEquipmentChange.bind(this)
+    this.handleTagChange = this.handleTagChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.renderIngredientInputs = this.renderIngredientInputs.bind(this)
     this.addIngredientInput = this.addIngredientInput.bind(this)
+    this.renderTagInputs = this.renderTagInputs.bind(this)
+    this.addTagInput = this.addTagInput.bind(this)
+    this.renderEquipmentInputs = this.renderEquipmentInputs.bind(this)
+    this.addEquipmentInput = this.addEquipmentInput.bind(this)
     this.state = {
       name: '',
       description: '',
       ingredients: [{id: 1, name:'', unit:'', quantity:''}],
       steps: [{name:'', length_of_time:''}],
-      equipments: [{name:''}],
-      tags: [{name:''}]
+      equipments: [{id: 1, name:''}],
+      tags: [{id: 1, name:''}]
       }
     }
 
@@ -29,6 +35,7 @@ export default class DrinkForm extends Component {
     })
   }
 
+  // ingredients
   handleIngredientChange(id, name, unit, quantity){
     this.setState((previousState) => {
       return {
@@ -45,7 +52,7 @@ export default class DrinkForm extends Component {
           }
         })
       }
-    })
+    }, console.log(this.state.ingredients))
   }
 
   renderUnitSelection(ingre){
@@ -70,7 +77,6 @@ export default class DrinkForm extends Component {
     </select>
     )
   }
-
 
   renderMeasurmentSelection(ingre){
       return (<select key={ingre.id + `quantity`} id={ingre.id} name="quantity" defaultValue={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, ingre.unit, event.target.value)}>
@@ -101,7 +107,7 @@ export default class DrinkForm extends Component {
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
       <div className="ingredients">
-        <input key={ingre.id + `ing`} type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit,  ingre.quantity)} />
+        <input key={ingre.id + `ing`} type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
       </div>
@@ -114,6 +120,65 @@ export default class DrinkForm extends Component {
     })
   }
 
+  // Equipment
+  handleEquipmentChange(id, name){
+    this.setState((previousState) => {
+      return {
+        equipments: previousState.equipments.map((equip) =>{
+          if (equip.id !== id) {
+            return equip
+          } else {
+            return {id: id, name: name}
+          }
+        })
+      }
+    })
+  }
+
+  renderEquipmentInputs(){
+    return this.state.equipments.map( equip => (
+      <div className="equipments">
+      <input key={equip.id + `equip`} type='text' name="name" placeholder="Equipment Name" defaultValue={equip.name} onChange={(event) => this.handleEquipmentChange(equip.id, event.target.value)} />
+      </div>
+    ))
+  }
+
+  addEquipmentInput(){
+    this.setState(function(previousState){
+      return { equipments: [...previousState.equipments, {id: previousState.equipments.length+1, name:''}]}
+    })
+  }
+
+
+  // Tags
+  handleTagChange(id, name){
+    this.setState((previousState) => {
+      return {
+        tags: previousState.tags.map((tag) =>{
+          if (tag.id !== id) {
+            return tag
+          } else {
+            return {id: id, name: name}
+          }
+        })
+      }
+    })
+  }
+
+  renderTagInputs(){
+    return this.state.tags.map( tag => (
+      <div className="tags">
+      <input key={tag.id + `tag`} type='text' name="name" placeholder="Tag" defaultValue={tag.name} onChange={(event) => this.handleTagChange(tag.id, event.target.value)} />
+      </div>
+    ))
+  }
+
+  addTagInput(){
+    this.setState(function(previousState){
+      return { tags: [...previousState.tags, {id: previousState.tags.length+1, name:''}]}
+    })
+  }
+
   render() {
     return (
         <div className="drink-input">
@@ -121,9 +186,13 @@ export default class DrinkForm extends Component {
             <input type='text' placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
             <input type='text' placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
             {this.renderIngredientInputs() }
-            <input type='submit' submitText={this.props.submitText}/>
+            {this.renderEquipmentInputs() }
+            {this.renderTagInputs() }
+            <input type='submit' value={this.props.submitText}/>
           </form>
           <button onClick={this.addIngredientInput}>Add Additional Ingredient</button>
+          <button onClick={this.addEquipmentInput}>Add Additional Equipment</button>
+          <button onClick={this.addTagInput}>Add Additional Tag</button>
         </div>
     );
   }

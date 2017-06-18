@@ -23,7 +23,7 @@ export default class DrinksAdapter {
         'accept': 'application/json'
       },
     body: JSON.stringify({
-      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients}
+      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients, equipments: drink.equipments, tags: drink.tags}
       })
     })
     .then( response => response.json() )

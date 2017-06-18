@@ -21,11 +21,9 @@ export default class DrinkPage extends Component {
   componentDidMount(){
     DrinksAdapter.allDrinks()
     .then( drinks => this.setState({drinks}) )
-    // console.log(this.state.drinks)
   }
 
   createDrink(drink){
-    console.log(drink)
     DrinksAdapter.create(drink)
     .then(drink => this.setState((previousState) => {
       return {
@@ -43,7 +41,6 @@ deleteDrink(id){
             drinks: previousState.drinks.filter( drink => drink.id !== id )
           }
         })
-        // this.props.history.push("/drinks")
       })
   }
 
