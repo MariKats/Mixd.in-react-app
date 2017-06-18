@@ -84,9 +84,9 @@ const DrinkDetail = ({drink, deleteDrink}) => {
               {drink.steps.length > 0 &&
                 <div className="steps">
                   <h3>Steps:</h3>
-                  <ul>
+                  <ol>
                     {drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
-                  </ul>
+                  </ol>
                 </div>
               }
 

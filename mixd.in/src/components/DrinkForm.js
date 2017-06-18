@@ -60,9 +60,8 @@ export default class DrinkForm extends Component {
 
   renderUnitSelection(ingre){
     return (
-    <select key={ingre.id + `unit`} id={ingre.id} name="unit" defaultValue={ingre.unit} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.quantity)}>
-      <option value=""> </option>
-      <option value="ounce">Ounce</option>
+    <select key={ingre.id + `unit`} id={ingre.id} className="form-control" name="unit" defaultValue={ingre.unit} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.quantity)}>
+      <option selected value="ounce">Ounce</option>
       <option value="dash">Dash</option>
       <option value="cup">Cup</option>
       <option value="wedge">Wedge</option>
@@ -82,9 +81,8 @@ export default class DrinkForm extends Component {
   }
 
   renderMeasurmentSelection(ingre){
-      return (<select key={ingre.id + `quantity`} id={ingre.id} name="quantity" defaultValue={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, ingre.unit, event.target.value)}>
-        <option value=""> </option>
-        <option value="0.5">0.5</option>
+      return (<select key={ingre.id + `quantity`} className="form-control" id={ingre.id} name="quantity" defaultValue={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, ingre.unit, event.target.value)}>
+        <option selected value="0.5">0.5</option>
         <option value="1">1</option>
         <option value="1.5">1.5</option>
         <option value="2">2</option>
@@ -110,7 +108,7 @@ export default class DrinkForm extends Component {
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
       <div className="ingredients">
-        <input key={ingre.id + `ing`} type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
+        <input key={ingre.id + `ing`} className="form-control" type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
       </div>
@@ -141,7 +139,7 @@ export default class DrinkForm extends Component {
   renderEquipmentInputs(){
     return this.state.equipments.map( equip => (
       <div className="equipments">
-      <input key={equip.id + `equip`} type='text' name="name" placeholder="Equipment Name" defaultValue={equip.name} onChange={(event) => this.handleEquipmentChange(equip.id, event.target.value)} />
+      <input key={equip.id + `equip`} className="form-control" type='text' name="name" placeholder="Equipment Name" defaultValue={equip.name} onChange={(event) => this.handleEquipmentChange(equip.id, event.target.value)} />
       </div>
     ))
   }
@@ -170,7 +168,7 @@ export default class DrinkForm extends Component {
   renderTagInputs(){
     return this.state.tags.map( tag => (
       <div className="tags">
-      <input key={tag.id + `tag`} type='text' name="name" placeholder="Tag" defaultValue={tag.name} onChange={(event) => this.handleTagChange(tag.id, event.target.value)} />
+      <input key={tag.id + `tag`} className="form-control" type='text' name="name" placeholder="Tag" defaultValue={tag.name} onChange={(event) => this.handleTagChange(tag.id, event.target.value)} />
       </div>
     ))
   }
@@ -199,8 +197,8 @@ export default class DrinkForm extends Component {
   renderStepInputs(){
     return this.state.steps.map( step => (
       <div className="steps">
-        <input key={step.id + ` step`} type='text' name="name" placeholder="Add Step" value={step.name} onChange={(event) => this.handleStepChange(step.id, event.target.value, step.length_of_time)} />
-        <input key={step.id + ` time`} type='number' name="length_of_time" placeholder="Number of Seconds" value={step.length_of_time} onChange={(event) => this.handleStepChange(step.id, step.name, event.target.value)}/>
+        <input key={step.id + ` step`} className="form-control" type='text' name="name" placeholder="Step Description" value={step.name} onChange={(event) => this.handleStepChange(step.id, event.target.value, step.length_of_time)} />
+        <input key={step.id + ` time`} className="form-control" type='number' name="length_of_time" placeholder="Number of Seconds" value={step.length_of_time} onChange={(event) => this.handleStepChange(step.id, step.name, event.target.value)}/>
       </div>
     ))
   }
@@ -213,20 +211,60 @@ export default class DrinkForm extends Component {
 
   render() {
     return (
-        <div className="drink-input">
-          <form onSubmit={this.handleSubmit}>
-            <input type='text' placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
-            <input type='text' placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
-            {this.renderIngredientInputs() }
-            {this.renderEquipmentInputs() }
-            {this.renderTagInputs() }
-            {this.renderStepInputs() }
-            <input type='submit' value={this.props.submitText}/>
+        <div className="container">
+          <h1 className="col-sm-offset-1">Create A New Drink</h1>
+          <form className="form-horizontal" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label className="control-label col-sm-2" for="drink-name">Name:</label>
+            <div className="col-sm-3">
+              <input type='text' className="form-control" id="drink-name" placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-sm-2" for="drink-description">Description:</label>
+            <div className="col-sm-3">
+              <input type='text' className="form-control" id="drink-description" placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-sm-2">Ingredients:</label>
+            <div className="col-sm-3">
+              {this.renderIngredientInputs() }
+              <a href="#" onClick={this.addIngredientInput}>Add Additional Ingredient</a>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-sm-2">Equipment:</label>
+            <div className="col-sm-3">
+              {this.renderEquipmentInputs() }
+              <a href="#" onClick={this.addEquipmentInput}>Add Additional Equipment</a>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-sm-2">Steps:</label>
+            <div className="col-sm-3">
+              {this.renderStepInputs() }
+              <a href="#" onClick={this.addStepInput}>Add Additional Step</a>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-sm-2">Tags:</label>
+            <div className="col-sm-3">
+              {this.renderTagInputs() }
+              <a href="#" onClick={this.addTagInput}>Add Additional Tag</a>
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-sm-offset-1 col-sm-3">
+              <input type='submit' className="btn btn-default" value={this.props.submitText}/>
+            </div>
+          </div>
           </form>
-          <button onClick={this.addIngredientInput}>Add Additional Ingredient</button>
-          <button onClick={this.addEquipmentInput}>Add Additional Equipment</button>
-          <button onClick={this.addTagInput}>Add Additional Tag</button>
-          <button onClick={this.addStepInput}>Add Additional Step</button>
         </div>
     );
   }
