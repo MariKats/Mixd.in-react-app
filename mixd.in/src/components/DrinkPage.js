@@ -2,14 +2,17 @@ import React,{Component} from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
 import DrinkList from './DrinkList';
 import DrinkForm from './DrinkForm';
+// import DrinkEditForm from './DrinkForm';
 import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
 import Search from './Search';
 
 export default class DrinkPage extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.createDrink = this.createDrink.bind(this)
+    this.deleteDrink = this.deleteDrink.bind(this)
+    this.updateDrink = this.updateDrink.bind(this)
     this.state = {
       drinks: []
     }
@@ -31,6 +34,36 @@ export default class DrinkPage extends Component {
     })
   )
 }
+
+deleteDrink(id){
+    DrinksAdapter.destroy(id)
+    .then( () => {
+        this.setState( previousState => {
+          return {
+            drinks: previousState.drinks.filter( drink => drink.id !== id )
+          }
+        })
+        // this.props.history.push("/drinks")
+      })
+  }
+
+  updateDrink(drink){
+    DrinksAdapter.update(drink)
+    .then(drinks => this.setState(function(previousState){
+      return {
+        drinks: previousState.drinks.map(function(d){
+          if (d.id !== drink.id ) {
+            return d
+          } else {
+            return drink
+          }
+        })
+      }
+    })
+  )
+    // this.props.history.push(`/drinks/${drink.id}`)
+  }
+
   render() {
       return (
           <div className="row">
@@ -39,12 +72,23 @@ export default class DrinkPage extends Component {
             </div>
             <div className='col-md-8'>
               <Switch>
-                <Route exact path='/drinks/new' render={() => <DrinkForm onSubmit={this.createDrink} submitText="Create Student"/>} />
+
+                <Route exact path='/drinks/new' render={() => <DrinkForm onSubmit={this.createDrink} submitText="Create a Drink"/>} />
                 <Route exact path='/drinks/:id' render={({match}) => {
                   const id = match.params.id
                   const drink = this.state.drinks.find( c =>  c.id === parseInt(id, 10) )
-                  return <DrinkDetail drink={drink}/>
+                  return <DrinkDetail drink={drink} deleteDrink={this.deleteDrink}/>
                 }} />
+
+
+                <Route exact path='/drinks/:id/edit' render={({match}) => {
+                const id = match.params.id
+                const drink = this.state.drinks.find( d =>  d.id === parseInt(id) )
+                if (!drink) {
+                  return null
+                }
+                return <DrinkForm drink={drink} onSubmit={this.updateDrink} submitText="Edit Drink"/>
+              }} />
               </Switch>
             </div>
           </div>
