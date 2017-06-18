@@ -28,16 +28,7 @@ export default class Landing extends Component {
       DrinksAdapter.allIng()
       .then(ingredients => this.setState({ingredients}))
     }
-
-    // search(){
-    //   var search = this.state.drinks.filter(drink => {
-    //     if(drink.name.includes(this.state.searchTerm)){
-    //       return <li>Hola Muchacho</li>
-    //     }
-    //   })
-    //   return search
-    // }
-
+    
     handleChange(event) {
         this.setState({
             searchTerm: event.target.value
