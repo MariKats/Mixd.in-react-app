@@ -81,6 +81,15 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 </div>
               }
 
+              {drink.steps.length > 0 &&
+                <div className="steps">
+                  <h3>Steps:</h3>
+                  <ul>
+                    {drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
+                  </ul>
+                </div>
+              }
+
               {drink.tags.length > 0 &&
                 <div className="tags">
                   <h3>Tags:</h3>

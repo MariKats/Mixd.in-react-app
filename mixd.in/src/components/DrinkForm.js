@@ -7,18 +7,21 @@ export default class DrinkForm extends Component {
     this.handleIngredientChange = this.handleIngredientChange.bind(this)
     this.handleEquipmentChange = this.handleEquipmentChange.bind(this)
     this.handleTagChange = this.handleTagChange.bind(this)
+    this.handleStepChange = this.handleStepChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.renderIngredientInputs = this.renderIngredientInputs.bind(this)
     this.addIngredientInput = this.addIngredientInput.bind(this)
     this.renderTagInputs = this.renderTagInputs.bind(this)
     this.addTagInput = this.addTagInput.bind(this)
+    this.renderStepInputs = this.renderStepInputs.bind(this)
+    this.addStepInput = this.addStepInput.bind(this)
     this.renderEquipmentInputs = this.renderEquipmentInputs.bind(this)
     this.addEquipmentInput = this.addEquipmentInput.bind(this)
     this.state = {
       name: '',
       description: '',
       ingredients: [{id: 1, name:'', unit:'', quantity:''}],
-      steps: [{name:'', length_of_time:''}],
+      steps: [{id: 1, name:'', length_of_time:''}],
       equipments: [{id: 1, name:''}],
       tags: [{id: 1, name:''}]
       }
@@ -149,7 +152,6 @@ export default class DrinkForm extends Component {
     })
   }
 
-
   // Tags
   handleTagChange(id, name){
     this.setState((previousState) => {
@@ -179,6 +181,36 @@ export default class DrinkForm extends Component {
     })
   }
 
+  // Steps
+  handleStepChange(id, name, time){
+    this.setState((previousState) => {
+      return {
+        steps: previousState.steps.map((step) =>{
+          if (step.id !== parseInt(id, 10)) {
+            return step
+          } else {
+            return {id: id, name: name, length_of_time: time}
+          }
+        })
+      }
+    })
+  }
+
+  renderStepInputs(){
+    return this.state.steps.map( step => (
+      <div className="steps">
+        <input key={step.id + ` step`} type='text' name="name" placeholder="Add Step" value={step.name} onChange={(event) => this.handleStepChange(step.id, event.target.value, step.length_of_time)} />
+        <input key={step.id + ` time`} type='number' name="length_of_time" placeholder="Number of Seconds" value={step.length_of_time} onChange={(event) => this.handleStepChange(step.id, step.name, event.target.value)}/>
+      </div>
+    ))
+  }
+
+  addStepInput(){
+    this.setState(function(previousState){
+      return { steps: [...previousState.steps, {id: previousState.steps.length+1, name:'', length_of_time: ""}]}
+    })
+  }
+
   render() {
     return (
         <div className="drink-input">
@@ -188,11 +220,13 @@ export default class DrinkForm extends Component {
             {this.renderIngredientInputs() }
             {this.renderEquipmentInputs() }
             {this.renderTagInputs() }
+            {this.renderStepInputs() }
             <input type='submit' value={this.props.submitText}/>
           </form>
           <button onClick={this.addIngredientInput}>Add Additional Ingredient</button>
           <button onClick={this.addEquipmentInput}>Add Additional Equipment</button>
           <button onClick={this.addTagInput}>Add Additional Tag</button>
+          <button onClick={this.addStepInput}>Add Additional Step</button>
         </div>
     );
   }
