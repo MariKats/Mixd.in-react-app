@@ -58,7 +58,6 @@ const DrinkDetail = ({drink, deleteDrink}) => {
           <h3>Ingredients:</h3>
           {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
           </div>
-          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>
           <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
           <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
           <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
