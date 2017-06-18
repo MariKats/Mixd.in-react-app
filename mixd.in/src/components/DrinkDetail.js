@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-
 function getIngredients(ingredients){
   const descr = ingredients.reduce((allIng, ing)=>{
     if(`${ing.unit} ${ing.name}` in allIng){
@@ -45,7 +44,7 @@ function getIngredients(ingredients){
   return results
 }
 
-const DrinkDetail = ({drink}) => {
+const DrinkDetail = ({drink, deleteDrink}) => {
   if (!drink){
     return null
   }
@@ -60,6 +59,9 @@ const DrinkDetail = ({drink}) => {
           {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
           </div>
           <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>
+          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
+          <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
+          <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
         </div>
       </div>
     </div>)
