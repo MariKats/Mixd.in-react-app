@@ -49,23 +49,56 @@ const DrinkDetail = ({drink, deleteDrink}) => {
     return null
   }
 
-  return(<div className='row inverse'>
-      <div className='col-md-4'>
+  return(
+    <div className='row inverse'>
+      <div className='col-md-8'>
         <div className='panel panel-default'>
-          <div className='panel-heading'><h1>{drink.name}</h1></div>
-          <div className='panel-body'>
-          <h3>Description:</h3> <p>{drink.description}</p>
-          <h3>Ingredients:</h3>
-          {getIngredients(drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
-          </div>
-          <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
-          <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
-          <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
+          <div className='panel-heading text-center'><h1>{drink.name}</h1></div>
+            <div className='panel-body'>
+
+              {drink.description.length > 0 &&
+                <div className="description">
+                  <h3>Description:</h3>
+                  <p>{drink.description}</p>
+                </div>
+              }
+
+              {drink.equipments.length > 0 &&
+                <div className="equipments">
+                  <h3>Equipment:</h3>
+                  <ul>
+                    {drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
+                  </ul>
+                </div>
+              }
+
+              {drink.ingredients.length > 0 &&
+                <div className="ingredients">
+                  <h3>Ingredients:</h3>
+                  <ul>
+                    {getIngredients(drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                  </ul>
+                </div>
+              }
+
+              {drink.tags.length > 0 &&
+                <div className="tags">
+                  <h3>Tags:</h3>
+                  <ul>
+                    {drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
+                  </ul>
+                </div>
+              }
+
+            </div>
+            <div className="panel-footer text-center">
+              <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
+              <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
+              <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
+            </div>
         </div>
       </div>
     </div>)
 }
-
-
 
 export default DrinkDetail;

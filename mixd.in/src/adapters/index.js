@@ -28,7 +28,7 @@ export default class DrinksAdapter {
     })
     .then( response => response.json() )
   }
-// 
+
 //   static update(drink){
 //    return fetch(`${this.url()}/${drink.id}`, {
 //     method: 'PATCH',
