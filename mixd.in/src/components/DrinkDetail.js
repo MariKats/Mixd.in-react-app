@@ -122,7 +122,7 @@ render() {
             </div>
             <div className="panel-footer text-center">
               <a onClick={this.startMaking}>Make Drink</a>{" "}-{" "}
-              <a href='#' onClick={() => this.deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
+              <a href='/drinks' onClick={() => this.props.deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
               <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
             </div>
             <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>

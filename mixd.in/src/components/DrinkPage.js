@@ -39,6 +39,7 @@ export default class DrinkPage extends Component {
 }
 
 deleteDrink(id){
+    debugger
     DrinksAdapter.destroy(id)
     .then( () => {
         this.setState( previousState => {

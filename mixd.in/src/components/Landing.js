@@ -39,19 +39,23 @@ export default class Landing extends Component {
 
         let dfilter = this.state.drinks.filter(drink => {
           if (drink.name.toUpperCase().includes(event.target.value.toUpperCase())) {
+            drink.type = "drink"
             return drink
           }
           if (drink.description.toUpperCase().includes(event.target.value.toUpperCase())){
+            drink.type = "drink"
             return drink
           }
           drink.ingredients.forEach((ingredient) => {
             if (ingredient.name.toUpperCase().includes(event.target.value.toUpperCase())) {
+              drink.type = "drink"
               return drink
             }
           })
         })
         let ifilter = this.state.ingredients.filter(ingredient => {
           if (ingredient.name.toUpperCase().includes(event.target.value.toUpperCase())) {
+            ingredient.type = "ingredient"
             return ingredient
           }
         })
