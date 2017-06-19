@@ -8,7 +8,6 @@ import { Collapse } from 'react-bootstrap';
 
 
 
-
 export default class Landing extends Component {
     constructor () {
         super()
@@ -71,6 +70,7 @@ export default class Landing extends Component {
             <div className="main row text-center">
                 <h1><img src='./better-mixd-in.png' /></h1>
                 <Collapse in={this.state.open}><h3 className="animated tada" ><img src="./shaker.png" /></h3></Collapse>
+
                 <h1><small>Pick Your Poison</small></h1>
                 <Search onChange={this.handleChange} className="btn btn-warning"/>
             </div>
