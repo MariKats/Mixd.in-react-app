@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SkyLight from 'react-skylight';
 import Step from './Step';
 import { Collapse, Accordion, Panel } from 'react-bootstrap'
