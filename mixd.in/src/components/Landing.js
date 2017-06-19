@@ -66,7 +66,7 @@ export default class Landing extends Component {
 
     render() {
         let sResults = null;
-        if (this.state.searchResults.length > 3) {
+        if (this.state.searchResults.length > 4) {
           sResults = <SearchResults results={this.state.searchResults}/>;
         } 
         return(

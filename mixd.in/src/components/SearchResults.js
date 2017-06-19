@@ -50,7 +50,7 @@ export default class SearchResults extends Component {
     render() {
             
             let pages = []
-            for(let i = 0; i<Math.round(this.props.results.length/4); i++) {
+            for(let i = 0; i<Math.floor(this.props.results.length/4); i++) {
                 pages.push(
                     <Carousel.Item>
                         <div className="row text-center">
@@ -61,17 +61,17 @@ export default class SearchResults extends Component {
                     </Carousel.Item>
                 )
             }
-            
-            return (
-             <Carousel>
-                
-                {pages.map(page => page)}
-                
-                
-                
-                
-            </Carousel>   
-        )
+            if(this.props.results.length < 4) {
+                return null
+            } else {
+                return (
+                <Carousel>
+                    {pages.map(page => page)}
+                </Carousel>  
+                )
+            }
+             
+        
         
         
     }
