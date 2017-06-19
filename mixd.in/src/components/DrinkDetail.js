@@ -64,8 +64,11 @@ getIngredients(ingredients){
 
 
 render() {
+  if (!this.props.drink){
+    return null
+  }
   return(
-    <div className='row inverse'>
+    <div className='row inverse drinks-list'>
       <div className='col-md-8'>
         <div className='panel panel-default'>
           <div className='panel-heading text-center'><h1>{this.props.drink.name}</h1></div>
@@ -123,8 +126,11 @@ render() {
               <a href='/drinks' onClick={() => this.props.deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
               <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
             </div>
-            <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
-              <Step steps={this.props.drink.steps}/>
+            <SkyLight hideOnOverlayClicked ref="simpleDialog">
+              <div>
+              <h3 className='drinktitle'>{this.props.drink.name}</h3>
+              <Step steps={this.props.drink.steps} />
+              </div>
             </SkyLight>
         </div>
       </div>
