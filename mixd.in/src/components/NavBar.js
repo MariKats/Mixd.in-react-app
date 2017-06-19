@@ -9,7 +9,6 @@ const NavBar = ({style, title}) => (
       </div>
       <ul className="nav navbar-nav">
         <li><Link to="/drinks">Drinks</Link></li>
-        <li><Link to="/ingredients">Ingredients</Link></li>
         <li><Link to="/about">About</Link></li>
       </ul>
     </div>
