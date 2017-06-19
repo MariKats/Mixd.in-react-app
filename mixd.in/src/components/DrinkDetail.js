@@ -12,11 +12,6 @@ export default class DrinkDetail extends Component {
 
     this.getIngredients = this.getIngredients.bind(this)
     this.startMaking = this.startMaking.bind(this)
-
-
-    this.state = {
-      steps: props.drink.steps
-    }
   }
 
   startMaking() {
@@ -69,6 +64,9 @@ getIngredients(ingredients){
 
 
 render() {
+  if (!this.props.drink){
+    return null
+  }
   return(
     <div className='row inverse drinks-list'>
       <div className='col-md-8'>
