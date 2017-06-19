@@ -70,7 +70,7 @@ getIngredients(ingredients){
 
 render() {
   return(
-    <div className='row inverse'>
+    <div className='row inverse drinks-list'>
       <div className='col-md-8'>
         <div className='panel panel-default'>
           <div className='panel-heading text-center'><h1>{this.props.drink.name}</h1></div>
