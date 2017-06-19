@@ -9,7 +9,7 @@ const SearchResults = ({results}) => {
   return (
     <div>
         <div type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"><div type="button" className="list-group-item" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><h4 className="card-header">{results.name}</h4></div> </div>
-        
+
     </div>
 )}
 
@@ -70,9 +70,9 @@ export default class Landing extends Component {
     render() {
         return(
           <div>
-            <div className="main row text-center" id="accordion">
+            <div className="main row text-center">
                 <h1><img src='./better-mixd-in.png' /></h1>
-                <h3 className="animated tada" ><img src="./shaker.png" className="collapse in" /></h3>
+                <h3 className="animated tada" ><img src="./shaker.png" /></h3>
                 <h1><small>Pick Your Poison</small></h1>
                 <Search onChange={this.handleChange} className="btn btn-warning"/>
             </div>

@@ -4,18 +4,18 @@ import React, { Component } from 'react'
 export default class Step extends Component {
     constructor(props) {
         super(props)
-       
+
         this.state = {
             stepCount: 1,
             steps: props.steps,
             curStep: props.steps[0].name,
-            curStepLength: props.steps[0].length_of_time
+            curStepLength: props.steps[0].length_of_time,
         }
         this.mapStepTimer = this.mapStepTimer.bind(this)
         this.startTimer = this.startTimer.bind(this)
         this.firstTimer()
     }
-    
+
     componentDidUpdate() {
         this.startTimer()
     }
@@ -41,7 +41,7 @@ export default class Step extends Component {
                 this.setState({
                     curStep: newStep.name,
                     curStepLength: newStep.length_of_time,
-                    stepCount: this.state.stepCount += 1
+                    stepCount: this.state.stepCount += 1,
                 })
             },this.state.curStepLength)
         } else {
@@ -58,12 +58,21 @@ export default class Step extends Component {
     }
 
     render() {
-        return (
-            <div className="vis">
-                <div>{this.state.curStep}</div>
-            </div>
-        )
-    }
-  
-}
 
+      if (this.state.curStep.includes('Stir')){
+        return (
+          <div className="vis">
+              <div>{this.state.curStep}</div>
+              <img class="image" src={'https://media.giphy.com/media/xUPGcs4d4wxnVuuyPe/giphy.gif'} />
+          </div>
+        )
+      } else {
+        return (
+          <div className="vis">
+            <div>{this.state.curStep}</div>
+          </div>
+        )
+      }
+    }
+
+}

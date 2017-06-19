@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Popup from 'react-popup';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SkyLight from 'react-skylight';
 import Step from './Step';
 
@@ -9,11 +8,11 @@ import Step from './Step';
 export default class DrinkDetail extends Component {
   constructor(props) {
     super(props)
-    
+
     this.getIngredients = this.getIngredients.bind(this)
     this.startMaking = this.startMaking.bind(this)
-    
-    
+
+
     this.state = {
       steps: props.drink.steps
     }
@@ -22,8 +21,8 @@ export default class DrinkDetail extends Component {
   startMaking() {
     this.refs.simpleDialog.show()
   }
-          
-          
+
+
 getIngredients(ingredients){
   const descr = ingredients.reduce((allIng, ing)=>{
     if(`${ing.unit} ${ing.name}` in allIng){
@@ -62,7 +61,7 @@ getIngredients(ingredients){
 
     var joined = split.join(" ")
     return joined
-    
+
   })
   return results
 }
@@ -134,8 +133,3 @@ render() {
 
   }
 }
-  
-  
-
-
-
