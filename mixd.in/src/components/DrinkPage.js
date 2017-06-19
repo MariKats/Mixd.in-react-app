@@ -6,10 +6,14 @@ import DrinkEditForm from './DrinkEditForm';
 import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
 import Search from './Search';
+import PropTypes from "prop-types";
 
 export default class DrinkPage extends Component {
-  constructor(props){
-    super(props);
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  constructor(props, context) {
+    super(props, context);
     this.createDrink = this.createDrink.bind(this)
     this.deleteDrink = this.deleteDrink.bind(this)
     this.updateDrink = this.updateDrink.bind(this)
@@ -59,7 +63,7 @@ deleteDrink(id){
         })
       }
     })
-    // this.props.history.push(`/drinks/${drink.id}`)
+    this.context.router.history.push(`/drinks`)
   })
 }
 
