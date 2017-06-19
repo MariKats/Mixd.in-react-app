@@ -84,7 +84,8 @@ export default class Landing extends Component {
               <Search onChange={this.handleChange} className="btn btn-warning"/>
               </div>
             </div>
-            <div className="row">
+            <div className="space"></div>
+            <div className="bc">
 
                  {sResults}
                 
