@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: 'Cinzel', serif !important;
+}
+
+.navbar {
+  color: #fff;
+}
+
+.about {
+  width: 75vw !important;
+}
