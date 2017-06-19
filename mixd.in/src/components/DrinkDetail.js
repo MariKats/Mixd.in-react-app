@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Popup from 'react-popup';
+
 import SkyLight from 'react-skylight';
 import Step from './Step';
 

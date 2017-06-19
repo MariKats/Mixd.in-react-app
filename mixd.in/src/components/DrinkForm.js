@@ -29,7 +29,12 @@ export default class DrinkForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    this.props.onSubmit(this.state)
+    if(this.state.name !== ''){
+      this.props.onSubmit(this.state)
+    } else {
+      alert('Please enter a drink name.')
+    }
+    
   }
 
   handleChange(event){

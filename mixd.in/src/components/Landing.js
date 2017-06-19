@@ -1,17 +1,13 @@
 import React,{Component} from 'react';
 import { Route, Link } from 'react-router-dom'
 import Search from './Search';
+import SearchResults from './SearchResults';
 import DrinksAdapter from '../adapters'
+import { Collapse } from 'react-bootstrap';
 // import SearchResults from './SearchResults'
 
 
-const SearchResults = ({results}) => {
-  return (
-    <div>
-        <div type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"><div type="button" className="list-group-item" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><h4 className="card-header">{results.name}</h4></div> </div>
-        
-    </div>
-)}
+
 
 export default class Landing extends Component {
     constructor () {
@@ -21,7 +17,8 @@ export default class Landing extends Component {
           drinks: [],
           ingredients: [],
           searchTerm: "",
-          searchResults: []
+          searchResults: [],
+          open: true
         }
     }
 
@@ -34,7 +31,8 @@ export default class Landing extends Component {
 
     handleChange(event) {
         this.setState({
-            searchTerm: event.target.value
+            searchTerm: event.target.value,
+            open: false
         })
 
         let dfilter = this.state.drinks.filter(drink => {
@@ -70,9 +68,9 @@ export default class Landing extends Component {
     render() {
         return(
           <div>
-            <div className="main row text-center" id="accordion">
+            <div className="main row text-center">
                 <h1><img src='./better-mixd-in.png' /></h1>
-                <h3 className="animated tada" ><img src="./shaker.png" className="collapse in" /></h3>
+                <Collapse in={this.state.open}><h3 className="animated tada" ><img src="./shaker.png" /></h3></Collapse>
                 <h1><small>Pick Your Poison</small></h1>
                 <Search onChange={this.handleChange} className="btn btn-warning"/>
             </div>

@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 export default class DrinkEditForm extends Component {
   constructor(props){
     super(props);
+    debugger
     this.handleChange = this.handleChange.bind(this)
     this.handleIngredientChange = this.handleIngredientChange.bind(this)
     this.handleEquipmentChange = this.handleEquipmentChange.bind(this)
@@ -18,8 +19,9 @@ export default class DrinkEditForm extends Component {
     this.renderEquipmentInputs = this.renderEquipmentInputs.bind(this)
     this.addEquipmentInput = this.addEquipmentInput.bind(this)
     this.state = {
-      name: '',
-      description: '',
+      id: props.drink.id,
+      name: props.drink.name,
+      description: props.drink.description,
       ingredients: [{id: 1, name:'', unit:'', quantity:''}],
       steps: [{id: 1, name:'', length_of_time:''}],
       equipments: [{id: 1, name:''}],
@@ -29,6 +31,11 @@ export default class DrinkEditForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
+    if(this.state.name !== ''){
+      this.props.onSubmit(this.state)
+    } else {
+      alert('Please enter a drink name.')
+    }
     this.props.onSubmit({
     id: this.props.drink.id,
     name: this.state.name,
@@ -228,14 +235,14 @@ export default class DrinkEditForm extends Component {
           <div className="form-group">
             <label className="control-label col-sm-2">Name:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" placeholder={this.props.drink.name} name="name" value={this.state.name} onChange={this.handleChange}/>
+              <input type='text' className="form-control" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
           </div>
 
           <div className="form-group">
             <label className="control-label col-sm-2">Description:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" placeholder={this.props.drink.description} name="description" value={this.state.description} onChange={this.handleChange}/>
+              <input type='text' className="form-control" name="description" value={this.state.description} onChange={this.handleChange}/>
             </div>
           </div>
 
