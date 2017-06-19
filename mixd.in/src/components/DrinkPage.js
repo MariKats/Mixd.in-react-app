@@ -35,6 +35,7 @@ export default class DrinkPage extends Component {
       }
     })
   )
+  this.context.router.history.push(`/drinks`)
 }
 
 deleteDrink(id){
@@ -63,7 +64,7 @@ deleteDrink(id){
         })
       }
     })
-    this.context.router.history.push(`/drinks`)
+    this.context.router.history.push(`/drinks/${drink.id}`)
   })
 }
 
