@@ -6,6 +6,8 @@ import DrinkDetail from './DrinkDetail';
 import Landing from './Landing';
 import StepsContainer from './StepsContainer';
 
+
+
 class App extends Component {
   render() {
     return (
@@ -14,10 +16,9 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() => <Landing />} />
           <Route path='/drinks' render={() => <DrinkPage />} />
-          <Route path='/drinks/:id' render={() => <DrinkDetail />} />
           <Route path='/drinks/:id/make' render={() => <StepsContainer />} />
         </Switch>
-
+        
       </div>
     );
   }

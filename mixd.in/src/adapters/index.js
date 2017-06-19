@@ -6,8 +6,14 @@ export default class DrinksAdapter {
     .then( response => response.json() )
   }
 
+  static show(id){
+    return fetch(`${this.url()}/${id}`)
+    .then( response => response.json() )
+  }
+
   static allIng(){
     return fetch(`${baseUrl}/ingredients`)
+
     .then( response => response.json() )
   }
 
