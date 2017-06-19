@@ -7,7 +7,10 @@ import DrinksAdapter from '../adapters'
 
 const SearchResults = ({results}) => {
   return (
-  <li>{results.name}</li>
+    <div>
+        <div type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo"><div type="button" className="list-group-item" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><h4 className="card-header">{results.name}</h4></div> </div>
+        
+    </div>
 )}
 
 export default class Landing extends Component {
@@ -34,28 +37,30 @@ export default class Landing extends Component {
             searchTerm: event.target.value
         })
 
-        let filter = this.state.drinks.filter(drink => {
-          if (drink.name.includes(event.target.value)) {
+        let dfilter = this.state.drinks.filter(drink => {
+          if (drink.name.toUpperCase().includes(event.target.value.toUpperCase())) {
             return drink
           }
-          if (drink.description.includes(event.target.value)){
+          if (drink.description.toUpperCase().includes(event.target.value.toUpperCase())){
             return drink
-
+          }
+          drink.ingredients.forEach((ingredient) => {
+            if (ingredient.name.toUpperCase().includes(event.target.value.toUpperCase())) {
+              return drink
+            }
+          })
+        })
+        let ifilter = this.state.ingredients.filter(ingredient => {
+          if (ingredient.name.toUpperCase().includes(event.target.value.toUpperCase())) {
+            return ingredient
           }
         })
+        let filter = dfilter.concat(ifilter)
+
         this.setState(()=>{
           return {searchResults: filter}
         })
 
-        // let ingredientfilter = this.state.ingredients.filter(ingredient => {
-        //   if (ingredient.name.includes(event.target.value)){
-        //     return ingredient
-        //   }
-        //   return false
-        // })
-        // this.setState( (previousState) => {
-        //   return {searchResults: [...previousState, ingredientfilter]}
-        // })
     }
 
     render() {
@@ -66,8 +71,8 @@ export default class Landing extends Component {
                 <h1><small>Pick Your Poison</small></h1>
                 <Search onChange={this.handleChange}/>
             </div>
-            <ul>
-              {this.state.searchResults.map(res => {return <Link to= {`/drinks/${res.id}`}><SearchResults key={res.id} results={res}/></Link>})}
+            <ul id="accordion">
+              {this.state.searchResults.map(res => {return <SearchResults key={res.id} results={res}/>})}
             </ul>
           </div>
 

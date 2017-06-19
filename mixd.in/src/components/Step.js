@@ -38,8 +38,6 @@ export default class Step extends Component {
         if (!!this.state.steps[this.state.stepCount]) {
             setTimeout(() => {
                 let newStep = this.state.steps[this.state.stepCount]
-                console.log(newStep)
-                console.log(this.state.stepCount)
                 this.setState({
                     curStep: newStep.name,
                     curStepLength: newStep.length_of_time,
@@ -51,8 +49,6 @@ export default class Step extends Component {
                 curStep: "Enjoy!"
             })
         }
-        
-        
     }
 
     removeStep() {

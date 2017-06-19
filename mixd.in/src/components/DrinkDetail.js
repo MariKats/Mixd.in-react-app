@@ -62,13 +62,13 @@ getIngredients(ingredients){
 
     var joined = split.join(" ")
     return joined
-    return key
+    
   })
   return results
 }
 
 
-
+render() {
   return(
     <div className='row inverse'>
       <div className='col-md-8'>
@@ -76,14 +76,14 @@ getIngredients(ingredients){
           <div className='panel-heading text-center'><h1>{this.props.drink.name}</h1></div>
             <div className='panel-body'>
 
-              {drink.description.length > 0 &&
+              {this.props.drink.description.length > 0 &&
                 <div className="description">
                   <h3>Description:</h3>
                   <p>{this.props.drink.description}</p>
                 </div>
               }
 
-              {drink.equipments[0].name !== "" &&
+              {this.props.drink.equipments[0].name !== "" &&
                 <div className="equipments">
                   <h3>Equipment:</h3>
                   <ul>
@@ -92,16 +92,16 @@ getIngredients(ingredients){
                 </div>
               }
 
-              {drink.ingredients.length > 0 &&
+              {this.props.drink.ingredients.length > 0 &&
                 <div className="ingredients">
                   <h3>Ingredients:</h3>
                   <ul>
-                    {getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                    {this.getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
                   </ul>
                 </div>
               }
 
-              {drink.steps[0].name !== "" &&
+              {this.props.drink.steps[0].name !== "" &&
                 <div className="steps">
                   <h3>Steps:</h3>
                   <ol>
@@ -121,8 +121,8 @@ getIngredients(ingredients){
 
             </div>
             <div className="panel-footer text-center">
-              <Link to={`/drinks/${this.props.drink.id}/make`}>Make Drink</Link>{" "}-{" "}
-              <a href='#' onClick={() => deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
+              <a onClick={this.startMaking}>Make Drink</a>{" "}-{" "}
+              <a href='#' onClick={() => this.deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
               <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
             </div>
             <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
@@ -133,7 +133,9 @@ getIngredients(ingredients){
     </div>)
 
   }
+}
+  
   
 
-}
+
 
