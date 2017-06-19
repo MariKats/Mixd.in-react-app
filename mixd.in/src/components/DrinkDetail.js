@@ -63,7 +63,7 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 </div>
               }
 
-              {drink.equipments.length > 0 &&
+              {drink.equipments[0].name !== "" &&
                 <div className="equipments">
                   <h3>Equipment:</h3>
                   <ul>
@@ -81,7 +81,7 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 </div>
               }
 
-              {drink.steps.length > 0 &&
+              {drink.steps[0].name !== "" &&
                 <div className="steps">
                   <h3>Steps:</h3>
                   <ol>
@@ -90,7 +90,7 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 </div>
               }
 
-              {drink.tags.length > 0 &&
+              {drink.tags[0].name !== "" &&
                 <div className="tags">
                   <h3>Tags:</h3>
                   <ul>

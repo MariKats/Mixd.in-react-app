@@ -6,11 +6,11 @@ export default class Landing extends Component {
     componentDidMount() {
         debugger
     }
-    
+
     render() {
         return(
             <div class="stepsContainer">
-                
+
             </div>
         )
     }

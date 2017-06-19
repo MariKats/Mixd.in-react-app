@@ -2,17 +2,21 @@ import React,{Component} from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
 import DrinkList from './DrinkList';
 import DrinkForm from './DrinkForm';
-// import DrinkEditForm from './DrinkForm';
+import DrinkEditForm from './DrinkEditForm';
 import DrinkDetail from './DrinkDetail';
 import DrinksAdapter from '../adapters';
 import Search from './Search';
+import PropTypes from "prop-types";
 
 export default class DrinkPage extends Component {
-  constructor(props){
-    super(props);
+  static contextTypes = {
+    router: PropTypes.object
+  }
+  constructor(props, context) {
+    super(props, context);
     this.createDrink = this.createDrink.bind(this)
     this.deleteDrink = this.deleteDrink.bind(this)
-    // this.updateDrink = this.updateDrink.bind(this)
+    this.updateDrink = this.updateDrink.bind(this)
     this.state = {
       drinks: []
     }
@@ -44,22 +48,24 @@ deleteDrink(id){
       })
   }
 
-  // updateDrink(drink){
-  //   DrinksAdapter.update(drink)
-  //   .then(drinks => this.setState(function(previousState){
-  //     return {
-  //       drinks: previousState.drinks.map(function(d){
-  //         if (d.id !== drink.id ) {
-  //           return d
-  //         } else {
-  //           return drink
-  //         }
-  //       })
-  //     }
-  //   })
-  // )
-  //   // this.props.history.push(`/drinks/${drink.id}`)
-  // }
+  updateDrink(drink){
+    console.log(drink)
+    DrinksAdapter.update(drink)
+    .then(() => {
+    this.setState(function(previousState){
+      return {
+        drinks: previousState.drinks.map(function(d){
+          if (d.id !== drink.id ) {
+            return d
+          } else {
+            return drink
+          }
+        })
+      }
+    })
+    this.context.router.history.push(`/drinks`)
+  })
+}
 
   render() {
       return (
@@ -70,11 +76,21 @@ deleteDrink(id){
             <div className='col-md-8'>
               <Switch>
 
-                <Route exact path='/drinks/new' render={() => <DrinkForm onSubmit={this.createDrink} submitText="Create a Drink"/>} />
+                <Route exact path='/drinks/new' render={() => <DrinkForm onSubmit={this.createDrink} submitText="Create Drink"/>} />
+
                 <Route exact path='/drinks/:id' render={({match}) => {
                   const id = match.params.id
-                  const drink = this.state.drinks.find( c =>  c.id === parseInt(id, 10) )
+                  const drink = this.state.drinks.find( d =>  d.id === parseInt(id, 10) )
                   return <DrinkDetail drink={drink} deleteDrink={this.deleteDrink}/>
+                }} />
+
+                <Route exact path='/drinks/:id/edit' render={({match}) => {
+                const id = match.params.id
+                const drink = this.state.drinks.find( d =>  d.id === parseInt(id, 10) )
+                if (!drink) {
+                  return null
+                }
+                return <DrinkEditForm drink={drink} onSubmit={this.updateDrink} submitText="Edit Drink"/>
                 }} />
               </Switch>
             </div>
@@ -82,12 +98,3 @@ deleteDrink(id){
       );
     }
 }
-
-// <Route exact path='/drinks/:id/edit' render={({match}) => {
-// const id = match.params.id
-// const drink = this.state.drinks.find( d =>  d.id === parseInt(id) )
-// if (!drink) {
-//   return null
-// }
-// return <DrinkForm drink={drink} onSubmit={this.updateDrink} submitText="Edit Drink"/>
-// }} />

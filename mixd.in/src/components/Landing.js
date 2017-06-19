@@ -28,7 +28,7 @@ export default class Landing extends Component {
       DrinksAdapter.allIng()
       .then(ingredients => this.setState({ingredients}))
     }
-    
+
     handleChange(event) {
         this.setState({
             searchTerm: event.target.value
