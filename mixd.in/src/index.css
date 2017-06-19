@@ -8,3 +8,9 @@ body {
 .navbar {
   color: #fff;
 }
+
+.car{
+    height: 400px;
+    width: 50%;
+    background-color: powderblue;
+}

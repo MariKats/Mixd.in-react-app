@@ -12,11 +12,6 @@ export default class DrinkDetail extends Component {
 
     this.getIngredients = this.getIngredients.bind(this)
     this.startMaking = this.startMaking.bind(this)
-
-
-    this.state = {
-      steps: props.drink.steps
-    }
   }
 
   startMaking() {
