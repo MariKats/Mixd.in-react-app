@@ -128,8 +128,11 @@ render() {
               <a href='/drinks' onClick={() => this.props.deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
               <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
             </div>
-            <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
-              <Step steps={this.props.drink.steps}/>
+            <SkyLight hideOnOverlayClicked ref="simpleDialog">
+              <div>
+              <h3 className='drinktitle'>{this.props.drink.name}</h3>
+              <Step steps={this.props.drink.steps} />
+              </div>
             </SkyLight>
         </div>
       </div>

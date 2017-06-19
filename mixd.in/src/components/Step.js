@@ -59,17 +59,46 @@ export default class Step extends Component {
 
     render() {
 
-      if (this.state.curStep.includes('Stir')){
+      if (this.state.curStep.toUpperCase().includes('Shake'.toUpperCase() )){
         return (
           <div className="vis">
               <div>{this.state.curStep}</div>
-              <img class="image" src={'https://media.giphy.com/media/xUPGcs4d4wxnVuuyPe/giphy.gif'} />
+              <img src={'https://media.giphy.com/media/xUPGcs4d4wxnVuuyPe/giphy.gif'} />
           </div>
         )
+      } if (this.state.curStep.toUpperCase().includes('Garnish'.toUpperCase() || 'Squeeze'.toUpperCase() || 'Cut'.toUpperCase() || 'Slice'.toUpperCase() || 'slice'.toUpperCase() )){
+        return (
+          <div className="vis">
+              <div>{this.state.curStep}</div>
+              <img src={'https://media.giphy.com/media/26mkhR47q0QQ4ue88/giphy.gif'} />
+          </div>
+          )
+      } if (this.state.curStep.toUpperCase().includes('Add'.toUpperCase() || 'Ice'.toUpperCase() || 'ice'.toUpperCase() )){
+        return (
+          <div className="vis">
+              <div>{this.state.curStep}</div>
+              <img src={'https://media.giphy.com/media/l1KVcP1dnbxGZ9XRS/giphy.gif'} />
+          </div>
+          )
+      } if (this.state.curStep.toUpperCase().includes('Stir'.toUpperCase() || 'Stirring'.toUpperCase() )){
+        return (
+          <div className="vis">
+              <div>{this.state.curStep}</div>
+              <img src={'https://media.giphy.com/media/3ohzdIYGiIOQ5Odb7a/giphy.gif'} />
+          </div>
+          )
+      } if (this.state.curStep.toUpperCase().includes('Blend'.toUpperCase() || 'Blender'.toUpperCase() || 'Blending'.toUpperCase() )){
+        return (
+          <div className="vis">
+              <div>{this.state.curStep}</div>
+              <img src={'https://media.giphy.com/media/3oKIPevTXFNHV9ALzW/giphy.gif'} />
+          </div>
+          )
       } else {
         return (
           <div className="vis">
             <div>{this.state.curStep}</div>
+            <img src={'https://media.giphy.com/media/l4FGlmIBu14LfNrmU/giphy.gif'} />
           </div>
         )
       }
