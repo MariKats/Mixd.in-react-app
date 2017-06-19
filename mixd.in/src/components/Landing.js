@@ -70,10 +70,11 @@ export default class Landing extends Component {
     render() {
         return(
           <div>
-            <div className="row jumbotron text-center">
+            <div className="main row text-center" id="accordion">
                 <h1><img src='./better-mixd-in.png' /></h1>
+                <h3 className="animated tada" ><img src="./shaker.png" className="collapse in" /></h3>
                 <h1><small>Pick Your Poison</small></h1>
-                <Search onChange={this.handleChange}/>
+                <Search onChange={this.handleChange} className="btn btn-warning"/>
             </div>
             <ul id="accordion">
               {this.state.searchResults.map(res => {return <SearchResults key={res.id} results={res}/>})}
