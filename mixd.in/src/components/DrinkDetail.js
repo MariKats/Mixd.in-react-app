@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Popup from 'react-popup';
 import SkyLight from 'react-skylight';
 import Step from './Step';
-
-
+import { Collapse, Accordion, Panel } from 'react-bootstrap'
 
 export default class DrinkDetail extends Component {
   constructor(props) {
     super(props)
-    
+
     this.getIngredients = this.getIngredients.bind(this)
     this.startMaking = this.startMaking.bind(this)
-    
-    
+
+
     this.state = {
       steps: props.drink.steps
     }
@@ -22,8 +20,8 @@ export default class DrinkDetail extends Component {
   startMaking() {
     this.refs.simpleDialog.show()
   }
-          
-          
+
+
 getIngredients(ingredients){
   const descr = ingredients.reduce((allIng, ing)=>{
     if(`${ing.unit} ${ing.name}` in allIng){
@@ -62,7 +60,7 @@ getIngredients(ingredients){
 
     var joined = split.join(" ")
     return joined
-    
+
   })
   return results
 }
@@ -77,47 +75,50 @@ render() {
             <div className='panel-body'>
 
               {this.props.drink.description.length > 0 &&
-                <div className="description">
-                  <h3>Description:</h3>
+                <div className="description text-center">
+                  <h3>Description</h3>
                   <p>{this.props.drink.description}</p>
-                </div>
-              }
+                </div>}
 
-              {this.props.drink.equipments[0].name !== "" &&
-                <div className="equipments">
-                  <h3>Equipment:</h3>
-                  <ul>
-                    {this.props.drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
-                  </ul>
-                </div>
-              }
-
-              {this.props.drink.ingredients.length > 0 &&
-                <div className="ingredients">
-                  <h3>Ingredients:</h3>
-                  <ul>
-                    {this.getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
-                  </ul>
-                </div>
-              }
-
-              {this.props.drink.steps[0].name !== "" &&
-                <div className="steps">
-                  <h3>Steps:</h3>
-                  <ol>
-                    {this.props.drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
-                  </ol>
-                </div>
-              }
-
-              {this.props.drink.tags[0].name !== "" &&
-                <div className="tags">
-                  <h3>Tags:</h3>
-                  <ul>
-                    {this.props.drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
-                  </ul>
-                </div>
-              }
+                {" "}
+              <Accordion>
+                <Panel header="Equipment" eventKey="1">
+                  {this.props.drink.equipments[0].name !== "" &&
+                    <div className="equipments">
+                      <ul>
+                        {this.props.drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
+                      </ul>
+                    </div>
+                  }
+                </Panel>
+                <Panel header="Ingredients" eventKey="2">
+                  {this.props.drink.ingredients.length > 0 &&
+                    <div className="ingredients">
+                      <ul>
+                        {this.getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                      </ul>
+                    </div>
+                  }
+                </Panel>
+                <Panel header="Steps" eventKey="3">
+                  {this.props.drink.steps[0].name !== "" &&
+                    <div className="steps">
+                      <ol>
+                        {this.props.drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
+                      </ol>
+                    </div>
+                    }
+                </Panel>
+                <Panel header="Tags" eventKey="5">
+                  {this.props.drink.tags[0].name !== "" &&
+                    <div className="tags">
+                      <ul>
+                        {this.props.drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
+                      </ul>
+                    </div>
+                    }
+                </Panel>
+              </Accordion>
 
             </div>
             <div className="panel-footer text-center">
@@ -134,8 +135,3 @@ render() {
 
   }
 }
-  
-  
-
-
-
