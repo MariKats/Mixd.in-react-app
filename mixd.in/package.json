@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "material-ui": "^0.18.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-popup": "^0.8.0",
     "react-router-dom": "^4.1.1",
+
     "react-skylight": "^0.4.2",
-    "split-array": "^1.0.1"
+
+    "react-tap-event-plugin": "^2.0.1",
+    "split-array": "^1.0.1",
+    "webpack": "^2.6.1"
+
   },
   "devDependencies": {
     "react-scripts": "1.0.7"

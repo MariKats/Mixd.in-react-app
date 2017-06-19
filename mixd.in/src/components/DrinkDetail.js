@@ -22,52 +22,112 @@ export default class DrinkDetail extends Component {
   startMaking() {
     this.refs.simpleDialog.show()
   }
-
-  getIngredients(ingredients){
-    const smt = ingredients.reduce((allIng, ing)=>{
-      if(`${ing.unit} of ${ing.name}` in allIng){
-        allIng[`${ing.unit} of ${ing.name}`]++
-      } else {
-        allIng[`${ing.unit} of ${ing.name}`]=1
-      }
-      return allIng
-    }, {})
-
-    let sorted = Object.keys(smt).map(k=>`${smt[k]} ${k}`)
-    let results = sorted.map(k => {
-      if(k.includes('ounce') || k.includes('cup')) {
-        var sp = k
-        var num = parseInt(sp.split(" ")[0])/2
-        var split = sp.split(" ").splice(1, 3)
-        split.unshift(num.toString())
-        if (num !== 1){
-          split[1]=split[1]+`s`
-        }
-        var joined = split.join(" ")
-        return joined
-      }
-      return k
-    })
-    
-    return results
-  }
-  
-  render(props) {
-    return(<div className='row inverse'>
-      <div className='col-md-4'>
-        <div className='panel panel-default'>
-          <div className='panel-heading'><h1>{this.props.drink.name}</h1></div>
-          <div className='panel-body'>
-          <h3>Description:</h3> <p>{this.props.drink.description}</p>
-          <h3>Ingredients:</h3>
-          {this.getIngredients(this.props.drink.ingredients).map((ingredient, index) => <p key={index}>{ingredient}</p>)}
-          </div>
-          <Link to={`/drinks/${this.props.drink.id}/make`}>Make Drink</Link>
-          <button onClick={this.startMaking}>Open Modal</button>
-          <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
-            <Step steps={this.props.drink.steps}/>
-          </SkyLight>
           
+          
+getIngredients(ingredients){
+  const descr = ingredients.reduce((allIng, ing)=>{
+    if(`${ing.unit} ${ing.name}` in allIng){
+      allIng[`${ing.unit} ${ing.name}`]++
+    } else {
+      allIng[`${ing.unit} ${ing.name}`]=1
+    }
+    return allIng
+  }, {})
+
+    let sorted = Object.keys(descr).map(key=>`${descr[key]} ${key}`)
+    let results = sorted.map(key => {
+    var num = parseInt(key.split(" ")[0])/2
+    var split = key.split(" ").splice(1, key.length-1)
+    split.unshift(num.toString())
+
+    if (num !== 1 && (split[1] === "dash" || split[1] === "splash" || split[1] === "pinch" || split[1] === "glass")){
+      split[1]=split[1]+`es`
+    }
+
+    else if (num !== 1 && split[1] === "pony"){
+      split[1]=split[1].slice(0, -1) +`ies`
+    }
+
+    else if (num !== 1 && split[1] === "mickey"){
+      split[1]=split[1].slice(0, -2) +`ies`
+    }
+
+    else if (num !== 1 && (split[1] === "tbs" || split[1] === 'tsps')){
+      split[1]
+    }
+
+    else if (num !== 1 && (split[1] === "cup" || split[1] === "squeeze" || split[1] === "ounce" || split[1] === "wedge" || split[1] === "sprig" || split[1] === "pint" || split[1] === "shot")) {
+      split[1]=split[1]+`s`
+    }
+
+    var joined = split.join(" ")
+    return joined
+    return key
+  })
+  return results
+}
+
+
+
+  return(
+    <div className='row inverse'>
+      <div className='col-md-8'>
+        <div className='panel panel-default'>
+          <div className='panel-heading text-center'><h1>{this.props.drink.name}</h1></div>
+            <div className='panel-body'>
+
+              {drink.description.length > 0 &&
+                <div className="description">
+                  <h3>Description:</h3>
+                  <p>{this.props.drink.description}</p>
+                </div>
+              }
+
+              {drink.equipments[0].name !== "" &&
+                <div className="equipments">
+                  <h3>Equipment:</h3>
+                  <ul>
+                    {this.props.drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
+                  </ul>
+                </div>
+              }
+
+              {drink.ingredients.length > 0 &&
+                <div className="ingredients">
+                  <h3>Ingredients:</h3>
+                  <ul>
+                    {getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                  </ul>
+                </div>
+              }
+
+              {drink.steps[0].name !== "" &&
+                <div className="steps">
+                  <h3>Steps:</h3>
+                  <ol>
+                    {this.props.drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
+                  </ol>
+                </div>
+              }
+
+              {this.props.drink.tags[0].name !== "" &&
+                <div className="tags">
+                  <h3>Tags:</h3>
+                  <ul>
+                    {this.props.drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
+                  </ul>
+                </div>
+              }
+
+            </div>
+            <div className="panel-footer text-center">
+              <Link to={`/drinks/${this.props.drink.id}/make`}>Make Drink</Link>{" "}-{" "}
+              <a href='#' onClick={() => deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
+              <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
+            </div>
+            <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
+              <Step steps={this.props.drink.steps}/>
+            </SkyLight>
         </div>
       </div>
     </div>)
@@ -75,6 +135,5 @@ export default class DrinkDetail extends Component {
   }
   
 
-
-
 }
+

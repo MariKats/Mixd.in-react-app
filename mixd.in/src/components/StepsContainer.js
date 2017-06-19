@@ -28,7 +28,7 @@ export default class Landing extends Component {
     render() {
         return(
             <div class="stepsContainer">
-                
+
             </div>
         )
     }

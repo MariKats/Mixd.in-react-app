@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-export default class DrinkForm extends Component {
+export default class DrinkEditForm extends Component {
   constructor(props){
     super(props);
     this.handleChange = this.handleChange.bind(this)
@@ -29,7 +29,16 @@ export default class DrinkForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    this.props.onSubmit(this.state)
+    this.props.onSubmit({
+    id: this.props.drink.id,
+    name: this.state.name,
+    description: this.state.description,
+    ingredients: this.state.ingredients,
+    steps: this.state.steps,
+    equipments: this.state.equipments,
+    tags: this.state.tags
+
+    })
   }
 
   handleChange(event){
@@ -110,7 +119,7 @@ export default class DrinkForm extends Component {
   renderIngredientInputs(){
     return this.state.ingredients.map( ingre => (
       <div className="ingredients">
-        <input key={ingre.id + `ing`} className="form-control" type='text' id={ingre.id} name="name" placeholder="Ingredient Name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
+        <input key={ingre.id + `ing`} className="form-control" type='text' id={ingre.id} name="name" defaultValue={ingre.name} onChange={(event) => this.handleIngredientChange(ingre.id, event.target.value, ingre.unit, ingre.quantity)} />
         {this.renderMeasurmentSelection(ingre)}
         {this.renderUnitSelection(ingre)}
       </div>
@@ -141,7 +150,7 @@ export default class DrinkForm extends Component {
   renderEquipmentInputs(){
     return this.state.equipments.map( equip => (
       <div className="equipments">
-      <input key={equip.id + `equip`} className="form-control" type='text' name="name" placeholder="Equipment Name" defaultValue={equip.name} onChange={(event) => this.handleEquipmentChange(equip.id, event.target.value)} />
+      <input key={equip.id + `equip`} className="form-control" type='text' name="name" placeholder={equip.name} defaultValue={equip.name} onChange={(event) => this.handleEquipmentChange(equip.id, event.target.value)} />
       </div>
     ))
   }
@@ -170,7 +179,7 @@ export default class DrinkForm extends Component {
   renderTagInputs(){
     return this.state.tags.map( tag => (
       <div className="tags">
-      <input key={tag.id + `tag`} className="form-control" type='text' name="name" placeholder="Tag" defaultValue={tag.name} onChange={(event) => this.handleTagChange(tag.id, event.target.value)} />
+      <input key={tag.id + `tag`} className="form-control" type='text' name="name" placeholder={tag.name} defaultValue={tag.name} onChange={(event) => this.handleTagChange(tag.id, event.target.value)} />
       </div>
     ))
   }
@@ -199,7 +208,7 @@ export default class DrinkForm extends Component {
   renderStepInputs(){
     return this.state.steps.map( step => (
       <div className="steps">
-        <input key={step.id + ` step`} className="form-control" type='text' name="name" placeholder="Step Description" value={step.name} onChange={(event) => this.handleStepChange(step.id, event.target.value, step.length_of_time)} />
+        <input key={step.id + ` step`} className="form-control" type='text' name="name" placeholder={step.name} value={step.name} onChange={(event) => this.handleStepChange(step.id, event.target.value, step.length_of_time)} />
         <input key={step.id + ` time`} className="form-control" type='number' name="length_of_time" placeholder="Number of Seconds" value={step.length_of_time} onChange={(event) => this.handleStepChange(step.id, step.name, event.target.value)}/>
       </div>
     ))
@@ -214,19 +223,19 @@ export default class DrinkForm extends Component {
   render() {
     return (
         <div className="container">
-          <h1 className="col-sm-offset-1">Create A New Drink</h1>
+          <h1 className="col-sm-offset-1">Edit Drink</h1>
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label className="control-label col-sm-2">Name:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
+              <input type='text' className="form-control" placeholder={this.props.drink.name} name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
           </div>
 
           <div className="form-group">
             <label className="control-label col-sm-2">Description:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
+              <input type='text' className="form-control" placeholder={this.props.drink.description} name="description" value={this.state.description} onChange={this.handleChange}/>
             </div>
           </div>
 
