@@ -61,7 +61,8 @@ export default class DrinkForm extends Component {
   renderUnitSelection(ingre){
     return (
     <select key={ingre.id + `unit`} id={ingre.id} className="form-control" name="unit" defaultValue={ingre.unit} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, event.target.value, ingre.quantity)}>
-      <option selected value="ounce">Ounce</option>
+      <option value="">Select Unit</option>
+      <option value="ounce">Ounce</option>
       <option value="dash">Dash</option>
       <option value="cup">Cup</option>
       <option value="wedge">Wedge</option>
@@ -82,7 +83,8 @@ export default class DrinkForm extends Component {
 
   renderMeasurmentSelection(ingre){
       return (<select key={ingre.id + `quantity`} className="form-control" id={ingre.id} name="quantity" defaultValue={ingre.quantity} onChange={(event) => this.handleIngredientChange(ingre.id, ingre.name, ingre.unit, event.target.value)}>
-        <option selected value="0.5">0.5</option>
+        <option value="">Select Quantity</option>
+        <option value="0.5">0.5</option>
         <option value="1">1</option>
         <option value="1.5">1.5</option>
         <option value="2">2</option>
@@ -215,16 +217,16 @@ export default class DrinkForm extends Component {
           <h1 className="col-sm-offset-1">Create A New Drink</h1>
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label className="control-label col-sm-2" for="drink-name">Name:</label>
+            <label className="control-label col-sm-2">Name:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" id="drink-name" placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
+              <input type='text' className="form-control" placeholder="Name of Drink" name="name" value={this.state.name} onChange={this.handleChange}/>
             </div>
           </div>
 
           <div className="form-group">
-            <label className="control-label col-sm-2" for="drink-description">Description:</label>
+            <label className="control-label col-sm-2">Description:</label>
             <div className="col-sm-3">
-              <input type='text' className="form-control" id="drink-description" placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
+              <input type='text' className="form-control" placeholder="Drink Description" name="description" value={this.state.description} onChange={this.handleChange}/>
             </div>
           </div>
 

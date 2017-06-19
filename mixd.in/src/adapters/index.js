@@ -29,18 +29,18 @@ export default class DrinksAdapter {
     .then( response => response.json() )
   }
 
-//   static update(drink){
-//    return fetch(`${this.url()}/${drink.id}`, {
-//     method: 'PATCH',
-//     headers: {
-//       'content-type': 'application/json',
-//       'accept': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       drink: {name: drink.name}
-//     })
-//   })
-// }
+  static update(drink){
+   return fetch(`${this.url()}/${drink.id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'accept': 'application/json'
+    },
+    body: JSON.stringify({
+      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients, equipments: drink.equipments, tags: drink.tags, steps: drink.steps}
+    })
+  })
+}
 
 static destroy(id){
   return fetch(`${this.url()}/${id}`, {
