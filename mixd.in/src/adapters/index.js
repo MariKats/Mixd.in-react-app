@@ -23,10 +23,33 @@ export default class DrinksAdapter {
         'accept': 'application/json'
       },
     body: JSON.stringify({
-      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients}
+      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients, equipments: drink.equipments, tags: drink.tags, steps: drink.steps}
       })
     })
     .then( response => response.json() )
   }
+
+  static update(drink){
+   return fetch(`${this.url()}/${drink.id}`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      'accept': 'application/json'
+    },
+    body: JSON.stringify({
+      drink: {name: drink.name, description: drink.description, ingredients: drink.ingredients, equipments: drink.equipments, tags: drink.tags, steps: drink.steps}
+    })
+  })
+}
+
+static destroy(id){
+  return fetch(`${this.url()}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'accept': 'application/json'
+    },
+  })
+}
 
 }
