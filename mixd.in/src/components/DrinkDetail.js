@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Popup from 'react-popup';
+import SkyLight from 'react-skylight';
+import Step from './Step';
 
-function getIngredients(ingredients){
+
+
+export default class DrinkDetail extends Component {
+  constructor(props) {
+    super(props)
+    
+    this.getIngredients = this.getIngredients.bind(this)
+    this.startMaking = this.startMaking.bind(this)
+    
+    
+    this.state = {
+      steps: props.drink.steps
+    }
+  }
+
+  startMaking() {
+    this.refs.simpleDialog.show()
+  }
+          
+          
+getIngredients(ingredients){
   const descr = ingredients.reduce((allIng, ing)=>{
     if(`${ing.unit} ${ing.name}` in allIng){
       allIng[`${ing.unit} ${ing.name}`]++
@@ -44,22 +67,19 @@ function getIngredients(ingredients){
   return results
 }
 
-const DrinkDetail = ({drink, deleteDrink}) => {
-  if (!drink){
-    return null
-  }
+
 
   return(
     <div className='row inverse'>
       <div className='col-md-8'>
         <div className='panel panel-default'>
-          <div className='panel-heading text-center'><h1>{drink.name}</h1></div>
+          <div className='panel-heading text-center'><h1>{this.props.drink.name}</h1></div>
             <div className='panel-body'>
 
               {drink.description.length > 0 &&
                 <div className="description">
                   <h3>Description:</h3>
-                  <p>{drink.description}</p>
+                  <p>{this.props.drink.description}</p>
                 </div>
               }
 
@@ -67,7 +87,7 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 <div className="equipments">
                   <h3>Equipment:</h3>
                   <ul>
-                    {drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
+                    {this.props.drink.equipments.map(equip => <li key={equip.id}>{equip.name}</li>)}
                   </ul>
                 </div>
               }
@@ -76,7 +96,7 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 <div className="ingredients">
                   <h3>Ingredients:</h3>
                   <ul>
-                    {getIngredients(drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+                    {getIngredients(this.props.drink.ingredients).map((ingredient, index) => <li key={index}>{ingredient}</li>)}
                   </ul>
                 </div>
               }
@@ -85,29 +105,35 @@ const DrinkDetail = ({drink, deleteDrink}) => {
                 <div className="steps">
                   <h3>Steps:</h3>
                   <ol>
-                    {drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
+                    {this.props.drink.steps.map(step => <li key={step.id}>{step.name} - Time: {step.length_of_time} seconds </li>)}
                   </ol>
                 </div>
               }
 
-              {drink.tags[0].name !== "" &&
+              {this.props.drink.tags[0].name !== "" &&
                 <div className="tags">
                   <h3>Tags:</h3>
                   <ul>
-                    {drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
+                    {this.props.drink.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
                   </ul>
                 </div>
               }
 
             </div>
             <div className="panel-footer text-center">
-              <Link to={`/drinks/${drink.id}/make`}>Make Drink</Link>{" "}-{" "}
-              <a href='#' onClick={() => deleteDrink(drink.id) }>Delete</a>{" "}-{" "}
-              <Link to={`/drinks/${drink.id}/edit`}>Edit</Link>
+              <Link to={`/drinks/${this.props.drink.id}/make`}>Make Drink</Link>{" "}-{" "}
+              <a href='#' onClick={() => deleteDrink(this.props.drink.id) }>Delete</a>{" "}-{" "}
+              <Link to={`/drinks/${this.props.drink.id}/edit`}>Edit</Link>
             </div>
+            <SkyLight hideOnOverlayClicked ref="simpleDialog" title={this.props.drink.name}>
+              <Step steps={this.props.drink.steps}/>
+            </SkyLight>
         </div>
       </div>
     </div>)
+
+  }
+  
+
 }
 
-export default DrinkDetail;
