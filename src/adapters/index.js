@@ -1,4 +1,4 @@
-const baseUrl = `http://localhost:3000/api`
+const baseUrl = `https://mixd-in-api.herokuapp.com/api`
 
 export default class DrinksAdapter {
   static allDrinks(){
