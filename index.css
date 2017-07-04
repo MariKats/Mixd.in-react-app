@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: 'Cinzel', serif !important;
+  background: url('other-background-option-min.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height:100%;
+}
+
+.navImg {
+  background: url('./inverted-olive.png') no-repeat center;
+  margin-left: 10px !important;
+}
+
+
+.navbar {
+  color: #fff;
+}
+
+.about {
+  width: 75vw !important;
+}
